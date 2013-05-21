@@ -198,6 +198,10 @@ class ExpressCheckoutPlugin extends AbstractPlugin
             foreach($data->get('checkout_items') as $item) {
                 $opts['L_PAYMENTREQUEST_0_ITEMCATEGORY' . $idx] = $item['category'];
                 $opts['L_PAYMENTREQUEST_0_NAME' . $idx] = $item['label'];
+                if (isset($item['description'])) {
+                    $opts['L_PAYMENTREQUEST_0_DESC' . $idx] = $item['description'];
+                }
+
                 $opts['L_PAYMENTREQUEST_0_QTY' . $idx] = $item['quantity'];
                 $opts['L_PAYMENTREQUEST_0_AMT' . $idx] = $item['unit_price'];
                 $itemsAmount += $item['unit_price'] * $item['quantity'];
@@ -205,6 +209,9 @@ class ExpressCheckoutPlugin extends AbstractPlugin
             }
             $opts['PAYMENTREQUEST_0_ITEMAMT'] = $itemsAmount;
         }
+        $opts['SOLUTIONTYPE'] = 'Sole';
+        $opts['LANDINGPAGE'] = 'Billing';
+        $opts['NOSHIPPING'] = '1';
 
         // to enable Paypal Instant Payment Notifications
         if ($data->has('notify_url')) {
@@ -263,6 +270,32 @@ class ExpressCheckoutPlugin extends AbstractPlugin
         $opts = $data->has('checkout_params') ? $data->get('checkout_params') : array();
         $opts['PAYMENTREQUEST_0_PAYMENTACTION'] = $paymentAction;
         $opts['PAYMENTREQUEST_0_CURRENCYCODE'] = $transaction->getPayment()->getPaymentInstruction()->getCurrency();
+
+        if ($data->has('checkout_items')) {
+            $itemsAmount = 0.00;
+            $idx = 0;
+            foreach($data->get('checkout_items') as $item) {
+                $opts['L_PAYMENTREQUEST_0_ITEMCATEGORY' . $idx] = $item['category'];
+                $opts['L_PAYMENTREQUEST_0_NAME' . $idx] = $item['label'];
+                if (isset($item['description'])) {
+                    $opts['L_PAYMENTREQUEST_0_DESC' . $idx] = $item['description'];
+                }
+                $opts['L_PAYMENTREQUEST_0_QTY' . $idx] = $item['quantity'];
+                $opts['L_PAYMENTREQUEST_0_AMT' . $idx] = $item['unit_price'];
+                $itemsAmount += $item['unit_price'] * $item['quantity'];
+                $idx++;
+            }
+            $opts['PAYMENTREQUEST_0_ITEMAMT'] = $itemsAmount;
+        }
+
+        $opts['SOLUTIONTYPE'] = 'Sole';
+        $opts['LANDINGPAGE'] = 'Billing';
+        $opts['NOSHIPPING'] = '1';
+
+        // to enable Paypal Instant Payment Notifications
+        if ($data->has('notify_url')) {
+            $opts['NOTIFYURL'] = $data->get('notify_url');
+        }
 
         $response = $this->client->requestSetExpressCheckout(
             $transaction->getRequestedAmount(),
@@ -326,5 +359,15 @@ class ExpressCheckoutPlugin extends AbstractPlugin
         }
 
         throw new \RuntimeException('You must configure a cancel url.');
+    }
+
+    protected function getNotifyUrl(ExtendedDataInterface $data)
+    {
+        if ($data->has('notify_url')) {
+            return $data->get('notify_url');
+        }
+        else {
+            return $this->notifyUrl;
+        }
     }
 }
