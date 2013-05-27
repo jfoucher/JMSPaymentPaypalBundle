@@ -196,7 +196,9 @@ class ExpressCheckoutPlugin extends AbstractPlugin
             $itemsAmount = 0.00;
             $idx = 0;
             foreach($data->get('checkout_items') as $item) {
-                $opts['L_PAYMENTREQUEST_0_ITEMCATEGORY' . $idx] = $item['category'];
+                if (isset($item['category'])) {
+                    $opts['L_PAYMENTREQUEST_0_ITEMCATEGORY' . $idx] = $item['category'];
+                }
                 $opts['L_PAYMENTREQUEST_0_NAME' . $idx] = $item['label'];
                 if (isset($item['description'])) {
                     $opts['L_PAYMENTREQUEST_0_DESC' . $idx] = $item['description'];
@@ -275,7 +277,9 @@ class ExpressCheckoutPlugin extends AbstractPlugin
             $itemsAmount = 0.00;
             $idx = 0;
             foreach($data->get('checkout_items') as $item) {
-                $opts['L_PAYMENTREQUEST_0_ITEMCATEGORY' . $idx] = $item['category'];
+                if (isset($item['category'])) {
+                    $opts['L_PAYMENTREQUEST_0_ITEMCATEGORY' . $idx] = $item['category'];
+                }
                 $opts['L_PAYMENTREQUEST_0_NAME' . $idx] = $item['label'];
                 if (isset($item['description'])) {
                     $opts['L_PAYMENTREQUEST_0_DESC' . $idx] = $item['description'];
