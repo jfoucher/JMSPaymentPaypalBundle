@@ -219,6 +219,9 @@ class ExpressCheckoutPlugin extends AbstractPlugin
         if ($data->has('notify_url')) {
             $opts['NOTIFYURL'] = $data->get('notify_url');
         }
+        if ($data->has('vat')) {
+            $opts['PAYMENTREQUEST_0_TAXAMT'] = $data->get('vat');
+        }
 
 
         $response = $this->client->requestDoExpressCheckoutPayment(
@@ -299,6 +302,9 @@ class ExpressCheckoutPlugin extends AbstractPlugin
         // to enable Paypal Instant Payment Notifications
         if ($data->has('notify_url')) {
             $opts['NOTIFYURL'] = $data->get('notify_url');
+        }
+        if ($data->has('vat')) {
+            $opts['PAYMENTREQUEST_0_TAXAMT'] = $data->get('vat');
         }
 
         $response = $this->client->requestSetExpressCheckout(
