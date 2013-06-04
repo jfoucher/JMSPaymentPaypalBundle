@@ -222,7 +222,9 @@ class ExpressCheckoutPlugin extends AbstractPlugin
         if ($data->has('vat')) {
             $opts['PAYMENTREQUEST_0_TAXAMT'] = $data->get('vat');
         }
-
+        if ($data->has('invoice')) {
+            $opts['PAYMENTREQUEST_0_INVNUM'] = $data->get('invoice');
+        }
 
         $response = $this->client->requestDoExpressCheckoutPayment(
             $data->get('express_checkout_token'),
@@ -307,6 +309,9 @@ class ExpressCheckoutPlugin extends AbstractPlugin
             $opts['PAYMENTREQUEST_0_TAXAMT'] = $data->get('vat');
         }
 
+        if ($data->has('invoice')) {
+            $opts['PAYMENTREQUEST_0_INVNUM'] = $data->get('invoice');
+        }
         $response = $this->client->requestSetExpressCheckout(
             $transaction->getRequestedAmount(),
             $this->getReturnUrl($data),
