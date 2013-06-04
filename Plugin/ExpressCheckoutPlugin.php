@@ -225,6 +225,10 @@ class ExpressCheckoutPlugin extends AbstractPlugin
         if ($data->has('invoice')) {
             $opts['PAYMENTREQUEST_0_INVNUM'] = $data->get('invoice');
         }
+        if ($data->has('locale')) {
+            $opts['LOCALECODE'] = $data->get('locale');
+            $opts['PAYMENTREQUEST_0_LOCALECODE'] = $data->get('locale');
+        }
 
         $response = $this->client->requestDoExpressCheckoutPayment(
             $data->get('express_checkout_token'),
@@ -307,6 +311,10 @@ class ExpressCheckoutPlugin extends AbstractPlugin
         }
         if ($data->has('vat')) {
             $opts['PAYMENTREQUEST_0_TAXAMT'] = $data->get('vat');
+        }
+        if ($data->has('locale')) {
+            $opts['LOCALECODE'] = $data->get('locale');
+            $opts['PAYMENTREQUEST_0_LOCALECODE'] = $data->get('locale');
         }
 
         if ($data->has('invoice')) {
