@@ -230,6 +230,30 @@ class ExpressCheckoutPlugin extends AbstractPlugin
             $opts['PAYMENTREQUEST_0_LOCALECODE'] = $data->get('locale');
         }
 
+        if ($data->has('shipping')) {
+
+            $shipping = $data->get('shipping');
+
+            if (isset($shipping['name'])) {
+                $opts['PAYMENTREQUEST_0_SHIPTONAME'] = $shipping['name'];
+            }
+            if (isset($shipping['street'])) {
+                $opts['PAYMENTREQUEST_0_SHIPTOSTREET'] = $shipping['street'];
+            }
+            if (isset($shipping['street2'])) {
+                $opts['PAYMENTREQUEST_0_SHIPTOSTREET2'] = $shipping['street2'];
+            }
+            if (isset($shipping['city'])) {
+                $opts['PAYMENTREQUEST_0_SHIPTOCITY'] = $shipping['city'];
+            }
+            if (isset($shipping['zip'])) {
+                $opts['PAYMENTREQUEST_0_SHIPTOZIP'] = $shipping['zip'];
+            }
+            if (isset($shipping['country'])) {
+                $opts['PAYMENTREQUEST_0_SHIPTOCOUNTRYCODE'] = $shipping['country'];
+            }
+
+        }
         $response = $this->client->requestDoExpressCheckoutPayment(
             $data->get('express_checkout_token'),
             $transaction->getRequestedAmount(),
@@ -319,6 +343,30 @@ class ExpressCheckoutPlugin extends AbstractPlugin
 
         if ($data->has('invoice')) {
             $opts['PAYMENTREQUEST_0_INVNUM'] = $data->get('invoice');
+        }
+        if ($data->has('shipping')) {
+
+            $shipping = $data->get('shipping');
+
+            if (isset($shipping['name'])) {
+                $opts['PAYMENTREQUEST_0_SHIPTONAME'] = $shipping['name'];
+            }
+            if (isset($shipping['street'])) {
+                $opts['PAYMENTREQUEST_0_SHIPTOSTREET'] = $shipping['street'];
+            }
+            if (isset($shipping['street2'])) {
+                $opts['PAYMENTREQUEST_0_SHIPTOSTREET2'] = $shipping['street2'];
+            }
+            if (isset($shipping['city'])) {
+                $opts['PAYMENTREQUEST_0_SHIPTOCITY'] = $shipping['city'];
+            }
+            if (isset($shipping['zip'])) {
+                $opts['PAYMENTREQUEST_0_SHIPTOZIP'] = $shipping['zip'];
+            }
+            if (isset($shipping['country'])) {
+                $opts['PAYMENTREQUEST_0_SHIPTOCOUNTRYCODE'] = $shipping['country'];
+            }
+
         }
         $response = $this->client->requestSetExpressCheckout(
             $transaction->getRequestedAmount(),
