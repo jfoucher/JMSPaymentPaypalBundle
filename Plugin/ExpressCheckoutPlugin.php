@@ -211,8 +211,8 @@ class ExpressCheckoutPlugin extends AbstractPlugin
             }
             $opts['PAYMENTREQUEST_0_ITEMAMT'] = $itemsAmount;
         }
-//        $opts['SOLUTIONTYPE'] = 'Sole';
-        $opts['LANDINGPAGE'] = 'Billing';
+        $opts['SOLUTIONTYPE'] = 'Sole';
+        //$opts['LANDINGPAGE'] = 'Billing';
         $opts['NOSHIPPING'] = '1';
 
         // to enable Paypal Instant Payment Notifications
@@ -325,8 +325,8 @@ class ExpressCheckoutPlugin extends AbstractPlugin
             $opts['PAYMENTREQUEST_0_ITEMAMT'] = $itemsAmount;
         }
 
-//        $opts['SOLUTIONTYPE'] = 'Sole';
-        $opts['LANDINGPAGE'] = 'Billing';
+        $opts['SOLUTIONTYPE'] = 'Sole';
+        //$opts['LANDINGPAGE'] = 'Billing';
         $opts['NOSHIPPING'] = '1';
 
         // to enable Paypal Instant Payment Notifications
