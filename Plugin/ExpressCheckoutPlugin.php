@@ -211,7 +211,7 @@ class ExpressCheckoutPlugin extends AbstractPlugin
             }
             $opts['PAYMENTREQUEST_0_ITEMAMT'] = $itemsAmount;
         }
-        $opts['SOLUTIONTYPE'] = 'Sole';
+//        $opts['SOLUTIONTYPE'] = 'Sole';
         $opts['LANDINGPAGE'] = 'Billing';
         $opts['NOSHIPPING'] = '1';
 
@@ -325,7 +325,7 @@ class ExpressCheckoutPlugin extends AbstractPlugin
             $opts['PAYMENTREQUEST_0_ITEMAMT'] = $itemsAmount;
         }
 
-        $opts['SOLUTIONTYPE'] = 'Sole';
+//        $opts['SOLUTIONTYPE'] = 'Sole';
         $opts['LANDINGPAGE'] = 'Billing';
         $opts['NOSHIPPING'] = '1';
 
