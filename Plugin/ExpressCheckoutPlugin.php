@@ -219,6 +219,9 @@ class ExpressCheckoutPlugin extends AbstractPlugin
         if ($data->has('notify_url')) {
             $opts['NOTIFYURL'] = $data->get('notify_url');
         }
+        if ($data->has('landing_page')) {
+            $opts['LANDINGPAGE'] = $data->get('landing_page');
+        }
         if ($data->has('vat')) {
             $opts['PAYMENTREQUEST_0_TAXAMT'] = $data->get('vat');
         }
@@ -335,6 +338,9 @@ class ExpressCheckoutPlugin extends AbstractPlugin
         }
         if ($data->has('vat')) {
             $opts['PAYMENTREQUEST_0_TAXAMT'] = $data->get('vat');
+        }
+        if ($data->has('landing_page')) {
+            $opts['LANDINGPAGE'] = $data->get('landing_page');
         }
         if ($data->has('locale')) {
             $opts['LOCALECODE'] = $data->get('locale');
